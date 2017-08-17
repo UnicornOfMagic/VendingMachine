@@ -14,11 +14,17 @@ namespace VendingMachineTest
             brain = new VendingMachineBrain();
         }
 
+        #region VendingMachineBrain.CheckDisplay() Tests
+
         [TestMethod]
         public void VendingMachineBrainReturnsInsertCoinWhenDisplayIsChecked()
         {
             Assert.AreEqual("INSERT COIN", brain.CheckDisplay());
         }
+
+        #endregion
+
+        #region VendingMachineBrain.AcceptCoin() Tests
 
         [TestMethod]
         public void VendingMachineAcceptsQuarters()
@@ -62,5 +68,6 @@ namespace VendingMachineTest
             Assert.IsFalse(brain.AcceptCoin(oddCoin4));
             Assert.IsFalse(brain.AcceptCoin(oddCoin5));
         }
+        #endregion
     }
 }
