@@ -9,15 +9,9 @@ namespace VendingMachine
         Product cola = new Product(ProductType.Cola, 1.0, 10);
         Product chips = new Product(ProductType.Chips, 0.5, 10);
         Product candy = new Product(ProductType.Candy, 0.65, 10);
-        const double QUARTERWIDTH = 0.955;
-        const double QUARTERVALUE = 0.25;
-        const double NICKELWIDTH = 0.835;
-        const double NICKELVALUE = 0.05;
-        const double DIMEWIDTH = 0.705;
-        const double DIMEVALUE = 0.1;
-        private int quarterCount = 10;
-        private int dimeCount = 10;
-        private int nickelCount = 10;
+        InternalCoin quarter = new InternalCoin(0.955, 0.25, 10);
+        InternalCoin nickel = new InternalCoin(0.835, 0.05, 10);
+        InternalCoin dime = new InternalCoin(0.705, 0.1, 10);
         private double balance = 0;
         private List<Coin> coinReturn = new List<Coin>();
         private string message = "";
@@ -36,7 +30,7 @@ namespace VendingMachine
                 return (Balance.ToString());
             } else
             {
-                if (quarterCount == 0 || dimeCount <= 2|| nickelCount <= 2)
+                if (quarter.Stock == 0 || dime.Stock <= 2|| nickel.Stock <= 2)
                     return ("EXACT CHANGE ONLY");
                 return ("INSERT COIN");
             }
@@ -45,19 +39,19 @@ namespace VendingMachine
 
         public bool AcceptCoin(Coin coin)
         {
-            if (coin.Width == QUARTERWIDTH)
+            if (coin.Width == quarter.Width)
             { // it's a quarter
-                Balance += QUARTERVALUE;
+                Balance += quarter.Value;
                 return true;
             }
-            else if (coin.Width == NICKELWIDTH)
+            else if (coin.Width == nickel.Width)
             { //it's a nickel
-                Balance += NICKELVALUE;
+                Balance += nickel.Value;
                 return true;
             }
-            else if (coin.Width == DIMEWIDTH)
+            else if (coin.Width == dime.Width)
             { //it's a dime
-                Balance += DIMEVALUE;
+                Balance += dime.Value;
                 return true;
             }
             else
@@ -112,18 +106,18 @@ namespace VendingMachine
             while (Balance > 0)
             {
                 Coin coin = null;
-                if (Balance >= 0.25)
+                if (Balance >= quarter.Value)
                 {
-                    coin = new Coin(QUARTERWIDTH);
-                    Balance -= QUARTERVALUE;
-                } else if (Balance >= 0.1)
+                    coin = new Coin(quarter.Width);
+                    Balance -= quarter.Value;
+                } else if (Balance >= dime.Value)
                 {
-                    coin = new Coin(DIMEWIDTH);
-                    Balance -= DIMEVALUE;
+                    coin = new Coin(dime.Width);
+                    Balance -= dime.Value;
                 } else
                 {
-                    coin = new Coin(NICKELWIDTH);
-                    Balance -= NICKELVALUE;
+                    coin = new Coin(nickel.Width);
+                    Balance -= nickel.Value;
                 }
                 Balance = Math.Round(Balance, 2);
                 ReturnCoin(coin);
@@ -148,9 +142,9 @@ namespace VendingMachine
         public Product Cola { get => cola; set => cola = value; }
         public Product Chips { get => chips; set => chips = value; }
         public Product Candy { get => candy; set => candy = value; }
-        public int QuarterCount { get => quarterCount; set => quarterCount = value; }
-        public int DimeCount { get => dimeCount; set => dimeCount = value; }
-        public int NickelCount { get => nickelCount; set => nickelCount = value; }
+        internal InternalCoin Quarter { get => quarter; set => quarter = value; }
+        internal InternalCoin Nickel { get => nickel; set => nickel = value; }
+        internal InternalCoin Dime { get => dime; set => dime = value; }
         #endregion
     }
 }
