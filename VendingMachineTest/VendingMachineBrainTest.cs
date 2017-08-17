@@ -7,11 +7,19 @@ namespace VendingMachineTest
     public class VendingMachineBrainTest
     {
         VendingMachineBrain brain;
+        Coin quarter;
+        Coin nickel;
+        Coin dime;
+        Coin penny;
 
         [TestInitialize]
         public void SetUp()
         {
             brain = new VendingMachineBrain();
+            quarter = new Coin(0.955);
+            nickel = new Coin(0.835);
+            dime = new Coin(0.705);
+            penny = new Coin(0.750);
         }
 
         #region VendingMachineBrain.CheckDisplay() Tests
@@ -25,10 +33,6 @@ namespace VendingMachineTest
         [TestMethod]
         public void VendingMachineBrainReturnsAmountInsertedWhenDisplayIsCheckedAfterAcceptingValidCoins()
         {
-            Coin quarter = new Coin(0.955);
-            Coin nickel = new Coin(0.835);
-            Coin dime = new Coin(0.705);
-
             brain.AcceptCoin(quarter);
             brain.AcceptCoin(nickel);
             brain.AcceptCoin(dime);
@@ -39,7 +43,6 @@ namespace VendingMachineTest
         [TestMethod]
         public void VendingMachineBrainReturnsInsertCoinIfInvalidCoinsAreInserted()
         {
-            Coin penny = new Coin(0.750);
             Coin invalidCoin = new Coin(0.111);
             Coin otherInvalidCoin = new Coin(0.999);
 
@@ -57,28 +60,24 @@ namespace VendingMachineTest
         [TestMethod]
         public void VendingMachineAcceptsQuarters()
         {
-            Coin quarter = new Coin(0.955);
             Assert.IsTrue(brain.AcceptCoin(quarter));
         }
 
         [TestMethod]
         public void VendingMachineAcceptsNickels()
         {
-            Coin nickel = new Coin(0.835);
             Assert.IsTrue(brain.AcceptCoin(nickel));
         }
 
         [TestMethod]
         public void VendingMachineAcceptsDimes()
         {
-            Coin dime = new Coin(0.705);
             Assert.IsTrue(brain.AcceptCoin(dime));
         }
 
         [TestMethod]
         public void VendingMachineDeclinesPennies()
         {
-            Coin penny = new Coin(0.750);
             Assert.IsFalse(brain.AcceptCoin(penny));
         }
 
