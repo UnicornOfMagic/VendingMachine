@@ -234,6 +234,45 @@ namespace VendingMachineTest
             Assert.AreEqual(11, brain.Nickel.Stock);
         }
 
+        [TestMethod]
+        public void ReturningCoinsShouldDepleteSomeCoinStockQuarters()
+        {
+            brain.Quarter.Stock = 4;
+            brain.Nickel.Stock = 0;
+            brain.Dime.Stock = 0;
+            brain.Balance = 1;
+
+            brain.ReturnCoins();
+
+            Assert.AreEqual(0, brain.Quarter.Stock);
+        }
+
+        [TestMethod]
+        public void ReturningCoinsShouldDepleteSomeCoinStockDimes()
+        {
+            brain.Quarter.Stock = 0;
+            brain.Nickel.Stock = 0;
+            brain.Dime.Stock = 10;
+            brain.Balance = 1;
+
+            brain.ReturnCoins();
+
+            Assert.AreEqual(0, brain.Dime.Stock);
+        }
+
+        [TestMethod]
+        public void ReturningCoinsShouldDepleteSomeCoinStockNickels()
+        {
+            brain.Quarter.Stock = 0;
+            brain.Nickel.Stock = 20;
+            brain.Dime.Stock = 0;
+            brain.Balance = 1;
+
+            brain.ReturnCoins();
+
+            Assert.AreEqual(0, brain.Nickel.Stock);
+        }
+
         #endregion
     }
 }

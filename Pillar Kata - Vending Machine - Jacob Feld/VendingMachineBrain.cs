@@ -109,18 +109,21 @@ namespace VendingMachine
             while (Balance > 0)
             {
                 Coin coin = null;
-                if (Balance >= Quarter.Value)
+                if (Balance >= Quarter.Value && Quarter.Stock > 0)
                 {
                     coin = new Coin(Quarter.Width);
                     Balance -= Quarter.Value;
-                } else if (Balance >= Dime.Value)
+                    Quarter.Stock--;
+                } else if (Balance >= Dime.Value && Dime.Stock > 0)
                 {
                     coin = new Coin(Dime.Width);
                     Balance -= Dime.Value;
-                } else
+                    Dime.Stock--;
+                } else if (Nickel.Stock > 0)
                 {
                     coin = new Coin(Nickel.Width);
                     Balance -= Nickel.Value;
+                    Nickel.Stock--;
                 }
                 Balance = Math.Round(Balance, 2);
                 ReturnCoin(coin);
