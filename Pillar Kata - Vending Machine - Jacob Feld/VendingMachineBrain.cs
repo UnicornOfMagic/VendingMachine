@@ -10,10 +10,10 @@ namespace VendingMachine
         const double CHIPSPRICE = 0.5;
         const double CANDYPRICE = 0.65;
         const double QUARTERWIDTH = 0.955;
-        const double NICKELWIDTH = 0.835;
-        const double DIMEWIDTH = 0.705;
         const double QUARTERVALUE = 0.25;
+        const double NICKELWIDTH = 0.835;
         const double NICKELVALUE = 0.05;
+        const double DIMEWIDTH = 0.705;
         const double DIMEVALUE = 0.1;
         private double balance = 0;
         private List<Coin> coinReturn = new List<Coin>();
@@ -34,7 +34,9 @@ namespace VendingMachine
         {
             if (!Message.Equals(""))
             {
-                return (Message);
+                string messageIntake = Message;
+                Message = "";
+                return (messageIntake);
             }
             else if (Balance > 0)
             {

@@ -58,6 +58,16 @@ namespace VendingMachineTest
             Assert.IsFalse(brain.Dispenser.Contains(Product.Cola));
         }
 
+        [TestMethod]
+        public void SelectingAProductWithInsufficientBalanceAndThenWithASufficientBalanceShouldDisplayInsertCoin()
+        {
+            brain.SelectProduct(Product.Cola);
+            Assert.AreEqual("1", brain.CheckDisplay());
+            brain.Balance = 1;
+            brain.SelectProduct(Product.Cola);
+            Assert.AreEqual("INSERT COIN", brain.CheckDisplay());
+        }
+
         #endregion
 
         #region VendingMachineBrain.CheckDisplay() Tests
