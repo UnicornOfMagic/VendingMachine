@@ -28,7 +28,7 @@ namespace VendingMachineTest
         public void SelectingAProductWithInsufficientBalanceDisplaysThePriceOfTheProduct()
         {
             brain.SelectProduct(Product.Cola);
-            Assert.AreEqual("1.0", brain.CheckDisplay());
+            Assert.AreEqual("1", brain.CheckDisplay());
             brain.SelectProduct(Product.Chips);
             Assert.AreEqual("0.5", brain.CheckDisplay());
             brain.SelectProduct(Product.Candy);
