@@ -21,7 +21,9 @@ namespace VendingMachine
                 return true;
             else if (coin.Width == .835) //it's a nickel
                 return true;
-            else 
+            else if (coin.Width == .705) //it's a dime
+                return true;
+            else
                 return false; //don't recognize it. Toss it.
         }
     }

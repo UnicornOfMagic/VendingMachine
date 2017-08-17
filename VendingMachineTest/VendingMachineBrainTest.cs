@@ -33,5 +33,12 @@ namespace VendingMachineTest
             Coin nickel = new Coin(0.835);
             Assert.IsTrue(brain.AcceptCoin(nickel));
         }
+
+        [TestMethod]
+        public void VendingMachineAcceptsDimes()
+        {
+            Coin dime = new Coin(0.705);
+            Assert.IsTrue(brain.AcceptCoin(dime));
+        }
     }
 }
