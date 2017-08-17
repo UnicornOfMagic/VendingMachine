@@ -36,6 +36,20 @@ namespace VendingMachineTest
             Assert.AreEqual("0.4", brain.CheckDisplay());
         }
 
+        [TestMethod]
+        public void VendingMachineBrainReturnsInsertCoinIfInvalidCoinsAreInserted()
+        {
+            Coin penny = new Coin(0.750);
+            Coin invalidCoin = new Coin(0.111);
+            Coin otherInvalidCoin = new Coin(0.999);
+
+            brain.AcceptCoin(penny);
+            brain.AcceptCoin(invalidCoin);
+            brain.AcceptCoin(otherInvalidCoin);
+
+            Assert.AreEqual("INSERT COIN", brain.CheckDisplay());
+        }
+
         #endregion
 
         #region VendingMachineBrain.AcceptCoin() Tests
