@@ -25,11 +25,6 @@ namespace VendingMachine
         public string Message { get => message; set => message = value; }
         public List<Product> Dispenser { get => dispenser; set => dispenser = value; }
 
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello World!");
-        }
-
         public string CheckDisplay()
         {
             if (!Message.Equals(""))
@@ -106,10 +101,32 @@ namespace VendingMachine
             MakeChange();
         }
 
+        public void ReturnCoins()
+        {
+            MakeChange();
+        }
+
         private void MakeChange()
         {
-            Coin coin = new Coin(QUARTERWIDTH);
-            ReturnCoin(coin);
+            while (Balance > 0)
+            {
+                Coin coin = null;
+                if (Balance >= 0.25)
+                {
+                    coin = new Coin(QUARTERWIDTH);
+                    Balance -= QUARTERVALUE;
+                } else if (Balance >= 0.1)
+                {
+                    coin = new Coin(DIMEWIDTH);
+                    Balance -= DIMEVALUE;
+                } else
+                {
+                    coin = new Coin(NICKELWIDTH);
+                    Balance -= NICKELVALUE;
+                }
+                Balance = Math.Round(Balance, 2);
+                ReturnCoin(coin);
+            }
         }
 
         private void ReturnCoin(Coin coin)

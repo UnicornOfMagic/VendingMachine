@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using VendingMachine;
 
 namespace VendingMachineTest
@@ -20,6 +21,32 @@ namespace VendingMachineTest
             nickel = new Coin(0.835);
             dime = new Coin(0.705);
             penny = new Coin(0.750);
+        }
+
+        [TestCleanup]
+        public void TearDown()
+        {
+            brain.Balance = 0;
+            brain.Message = "";
+            brain.CoinReturn = new List<Coin>();
+            brain.Dispenser = new List<Product>();
+        }
+
+        [TestMethod]
+        public void CoinReturnButtonShouldReturnEntireBalanceAndReturnsCoins()
+        {
+            brain.Balance = 0.90;
+            brain.ReturnCoins();
+            Assert.AreEqual(0, brain.Balance);
+            Assert.IsTrue(brain.CoinReturn.Count > 0);
+        }
+
+        [TestMethod]
+        public void AfterPressingCoinReturnTheDisplayShouldShowInsertCoin()
+        {
+            brain.Balance = 1;
+            brain.ReturnCoins();
+            Assert.AreEqual("INSERT COIN", brain.CheckDisplay());
         }
 
         #region VendingMachineBrain.SelectProduct() Tests
