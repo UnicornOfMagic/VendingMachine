@@ -35,26 +35,26 @@ namespace VendingMachineTest
         [TestMethod]
         public void WhenProductSelectedIsOutOfStockCheckDisplayShouldSaySoldOut()
         {
-            brain.ColaStock = 0;
-            brain.SelectProduct(Product.Cola);
+            brain.Cola.Stock = 0;
+            brain.SelectProduct(ProductType.Cola);
             Assert.AreEqual("SOLD OUT", brain.CheckDisplay());
         }
 
         [TestMethod]
         public void WhenProductSelectedIsVendedTheStockWillDecreaseByOne()
         {
-            brain.ColaStock = 10;
+            brain.Cola.Stock = 10;
             brain.Balance = 1;
-            brain.SelectProduct(Product.Cola);
-            Assert.AreEqual(9, brain.ColaStock);
-            brain.ChipStock = 10;
+            brain.SelectProduct(ProductType.Cola);
+            Assert.AreEqual(9, brain.Cola.Stock);
+            brain.Chips.Stock = 10;
             brain.Balance = 0.5;
-            brain.SelectProduct(Product.Chips);
-            Assert.AreEqual(9, brain.ChipStock);
-            brain.CandyStock = 10;
+            brain.SelectProduct(ProductType.Chips);
+            Assert.AreEqual(9, brain.Chips.Stock);
+            brain.Candy.Stock = 10;
             brain.Balance = 0.65;
-            brain.SelectProduct(Product.Candy);
-            Assert.AreEqual(9, brain.CandyStock);
+            brain.SelectProduct(ProductType.Candy);
+            Assert.AreEqual(9, brain.Candy.Stock);
         }
 
         #region VendingMachineBrain.ReturnCoins() Tests
@@ -83,11 +83,11 @@ namespace VendingMachineTest
         [TestMethod]
         public void SelectingAProductWithInsufficientBalanceDisplaysThePriceOfTheProduct()
         {
-            brain.SelectProduct(Product.Cola);
+            brain.SelectProduct(ProductType.Cola);
             Assert.AreEqual("1", brain.CheckDisplay());
-            brain.SelectProduct(Product.Chips);
+            brain.SelectProduct(ProductType.Chips);
             Assert.AreEqual("0.5", brain.CheckDisplay());
-            brain.SelectProduct(Product.Candy);
+            brain.SelectProduct(ProductType.Candy);
             Assert.AreEqual("0.65", brain.CheckDisplay());
         }
 
@@ -95,32 +95,32 @@ namespace VendingMachineTest
         public void SelectingAProductWithSufficientBalanceDispensesProduct()
         {
             brain.Balance = 1;
-            brain.SelectProduct(Product.Cola);
-            Assert.IsTrue(brain.Dispenser.Contains(Product.Cola));
+            brain.SelectProduct(ProductType.Cola);
+            Assert.AreEqual(ProductType.Cola, brain.Dispenser[0].Type);
         }
 
         [TestMethod]
         public void SelectingAProductWithSufficientBalanceShouldNotDisplayProductPrice()
         {
             brain.Balance = 1;
-            brain.SelectProduct(Product.Cola);
+            brain.SelectProduct(ProductType.Cola);
             Assert.AreEqual("INSERT COIN", brain.CheckDisplay());
         }
 
         [TestMethod]
         public void SelectingAProductWithInsufficientBalanceShouldNotDispenseTheProduct()
         {
-            brain.SelectProduct(Product.Cola);
-            Assert.IsFalse(brain.Dispenser.Contains(Product.Cola));
+            brain.SelectProduct(ProductType.Cola);
+            Assert.AreEqual(0, brain.Dispenser.Count);
         }
 
         [TestMethod]
         public void SelectingAProductWithInsufficientBalanceAndThenWithASufficientBalanceShouldDisplayInsertCoin()
         {
-            brain.SelectProduct(Product.Cola);
+            brain.SelectProduct(ProductType.Cola);
             Assert.AreEqual("1", brain.CheckDisplay());
             brain.Balance = 1;
-            brain.SelectProduct(Product.Cola);
+            brain.SelectProduct(ProductType.Cola);
             Assert.AreEqual("INSERT COIN", brain.CheckDisplay());
         }
 
@@ -128,7 +128,7 @@ namespace VendingMachineTest
         public void SelectingAProductWithExcessBalanceShouldResultInChangeBack()
         {
             brain.Balance = 1.25;
-            brain.SelectProduct(Product.Cola);
+            brain.SelectProduct(ProductType.Cola);
             Assert.IsTrue(brain.CoinReturn.Contains(quarter));
         }
 

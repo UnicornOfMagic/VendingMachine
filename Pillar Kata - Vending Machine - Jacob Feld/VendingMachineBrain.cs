@@ -6,9 +6,9 @@ namespace VendingMachine
 
     public class VendingMachineBrain
     {
-        const double COLAPRICE = 1.0;
-        const double CHIPSPRICE = 0.5;
-        const double CANDYPRICE = 0.65;
+        Product cola = new Product(ProductType.Cola, 1.0, 10);
+        Product chips = new Product(ProductType.Chips, 0.5, 10);
+        Product candy = new Product(ProductType.Candy, 0.65, 10);
         const double QUARTERWIDTH = 0.955;
         const double QUARTERVALUE = 0.25;
         const double NICKELWIDTH = 0.835;
@@ -19,17 +19,6 @@ namespace VendingMachine
         private List<Coin> coinReturn = new List<Coin>();
         private string message = "";
         private List<Product> dispenser = new List<Product>();
-        private int colaStock = 10;
-        private int chipStock = 10;
-        private int candyStock = 10;
-
-        public double Balance { get => balance; set => balance = value; }
-        public List<Coin> CoinReturn { get => coinReturn; set => coinReturn = value; }
-        public string Message { get => message; set => message = value; }
-        public List<Product> Dispenser { get => dispenser; set => dispenser = value; }
-        public int ColaStock { get => colaStock; set => colaStock = value; }
-        public int ChipStock { get => chipStock; set => chipStock = value; }
-        public int CandyStock { get => candyStock; set => candyStock = value; }
 
         public string CheckDisplay()
         {
@@ -73,50 +62,39 @@ namespace VendingMachine
             }
         }
 
-        public void SelectProduct(Product product)
+        public void SelectProduct(ProductType type)
         {
-            if (product == Product.Cola)
+            Product product = ConvertProductTypeIntoProduct(type);
+            
+
+            if (product.Stock == 0)
             {
-                if (ColaStock == 0)
-                {
-                    Message = "SOLD OUT";
-                }else if (Balance < COLAPRICE)
-                    Message = COLAPRICE.ToString();
-                else
-                {
-                    Balance -= COLAPRICE;
-                    ColaStock--;
-                    Dispense(product);
-                }
-            } else if (product == Product.Chips)
+                Message = "SOLD OUT";
+            }else if (Balance < product.Price)
+                Message = product.Price.ToString();
+            else
             {
-                if (ChipStock == 0)
-                {
-                    Message = "SOLD OUT";
-                }else if (Balance < CHIPSPRICE)
-                    Message = CHIPSPRICE.ToString();
-                else
-                {
-                    Balance -= CHIPSPRICE;
-                    ChipStock--;
-                    Dispense(product);
-                }
-            } else if (product == Product.Candy)
-            {
-                if (CandyStock == 0)
-                {
-                    Message = "SOLD OUT";
-                }else if (Balance < CANDYPRICE)
-                    Message = CANDYPRICE.ToString();
-                else
-                {
-                    Balance -= CANDYPRICE;
-                    CandyStock--;
-                    Dispense(product);
-                }
+                Balance -= product.Price;
+                product.Stock--;
+                Dispense(product);
             }
 
             MakeChange();
+        }
+
+        private Product ConvertProductTypeIntoProduct(ProductType type)
+        {
+            switch (type)
+            {
+                case ProductType.Cola:
+                    return Cola;
+                case ProductType.Chips:
+                    return Chips;
+                case ProductType.Candy:
+                    return Candy;
+                default:
+                    return null; //Should never happen...
+            }
         }
 
         public void ReturnCoins()
@@ -156,5 +134,13 @@ namespace VendingMachine
         {
             Dispenser.Add(product);
         }
+        
+        public double Balance { get => balance; set => balance = value; }
+        public List<Coin> CoinReturn { get => coinReturn; set => coinReturn = value; }
+        public string Message { get => message; set => message = value; }
+        public List<Product> Dispenser { get => dispenser; set => dispenser = value; }
+        public Product Cola { get => cola; set => cola = value; }
+        public Product Chips { get => chips; set => chips = value; }
+        public Product Candy { get => candy; set => candy = value; }
     }
 }
