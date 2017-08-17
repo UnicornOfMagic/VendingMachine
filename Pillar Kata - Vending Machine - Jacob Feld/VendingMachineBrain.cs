@@ -15,12 +15,14 @@ namespace VendingMachine
             return ("INSERT COIN");
         }
 
-        public bool AcceptCoin(Coin quarter)
+        public bool AcceptCoin(Coin coin)
         {
-            if (quarter.Width == .955)
+            if (coin.Width == .955) // it's a quarter
                 return true;
-            else
-                return false;
+            else if (coin.Width == .835) //it's a nickel
+                return true;
+            else 
+                return false; //don't recognize it. Toss it.
         }
     }
 }

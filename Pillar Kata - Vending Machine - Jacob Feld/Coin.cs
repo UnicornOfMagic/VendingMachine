@@ -6,7 +6,7 @@ namespace VendingMachine
 {
     public class Coin
     {
-        private double width = 0;
+        private double width = 0; //width of the coin in inches
 
         public Coin(double width)
         {

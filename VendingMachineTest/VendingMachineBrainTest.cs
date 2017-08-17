@@ -26,5 +26,12 @@ namespace VendingMachineTest
             Coin quarter = new Coin(0.955);
             Assert.IsTrue(brain.AcceptCoin(quarter));
         }
+
+        [TestMethod]
+        public void VendingMachineAcceptsNickels()
+        {
+            Coin nickel = new Coin(0.835);
+            Assert.IsTrue(brain.AcceptCoin(nickel));
+        }
     }
 }
