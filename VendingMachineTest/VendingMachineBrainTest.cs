@@ -22,6 +22,20 @@ namespace VendingMachineTest
             Assert.AreEqual("INSERT COIN", brain.CheckDisplay());
         }
 
+        [TestMethod]
+        public void VendingMachineBrainReturnsAmountInsertedWhenDisplayIsCheckedAfterAcceptingValidCoins()
+        {
+            Coin quarter = new Coin(0.955);
+            Coin nickel = new Coin(0.835);
+            Coin dime = new Coin(0.705);
+
+            brain.AcceptCoin(quarter);
+            brain.AcceptCoin(nickel);
+            brain.AcceptCoin(dime);
+
+            Assert.AreEqual("0.4", brain.CheckDisplay());
+        }
+
         #endregion
 
         #region VendingMachineBrain.AcceptCoin() Tests
