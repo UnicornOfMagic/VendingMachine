@@ -6,12 +6,12 @@ namespace VendingMachine
 
     public class VendingMachineBrain
     {
-        Product cola = new Product(ProductType.Cola, 1.0, 10);
-        Product chips = new Product(ProductType.Chips, 0.5, 10);
-        Product candy = new Product(ProductType.Candy, 0.65, 10);
-        InternalCoin quarter = new InternalCoin(0.955, 0.25, 10);
-        InternalCoin nickel = new InternalCoin(0.835, 0.05, 10);
-        InternalCoin dime = new InternalCoin(0.705, 0.1, 10);
+        private Product cola = new Product(ProductType.Cola, 1.0, 10);
+        private Product chips = new Product(ProductType.Chips, 0.5, 10);
+        private Product candy = new Product(ProductType.Candy, 0.65, 10);
+        private InternalCoin quarter = new InternalCoin(0.955, 0.25, 10);
+        private InternalCoin nickel = new InternalCoin(0.835, 0.05, 10);
+        private InternalCoin dime = new InternalCoin(0.705, 0.1, 10);
         private double balance = 0;
         private List<Coin> coinReturn = new List<Coin>();
         private string message = "";
@@ -30,7 +30,7 @@ namespace VendingMachine
                 return (Balance.ToString());
             } else
             {
-                if (quarter.Stock == 0 || dime.Stock <= 2|| nickel.Stock <= 2)
+                if (Quarter.Stock == 0 || Dime.Stock <= 2|| Nickel.Stock <= 2)
                     return ("EXACT CHANGE ONLY");
                 return ("INSERT COIN");
             }
@@ -39,19 +39,22 @@ namespace VendingMachine
 
         public bool AcceptCoin(Coin coin)
         {
-            if (coin.Width == quarter.Width)
+            if (coin.Width == Quarter.Width)
             { // it's a quarter
-                Balance += quarter.Value;
+                Balance += Quarter.Value;
+                Quarter.Stock++;
                 return true;
             }
-            else if (coin.Width == nickel.Width)
+            else if (coin.Width == Nickel.Width)
             { //it's a nickel
-                Balance += nickel.Value;
+                Balance += Nickel.Value;
+                Nickel.Stock++;
                 return true;
             }
-            else if (coin.Width == dime.Width)
+            else if (coin.Width == Dime.Width)
             { //it's a dime
-                Balance += dime.Value;
+                Balance += Dime.Value;
+                Dime.Stock++;
                 return true;
             }
             else
@@ -106,18 +109,18 @@ namespace VendingMachine
             while (Balance > 0)
             {
                 Coin coin = null;
-                if (Balance >= quarter.Value)
+                if (Balance >= Quarter.Value)
                 {
-                    coin = new Coin(quarter.Width);
-                    Balance -= quarter.Value;
-                } else if (Balance >= dime.Value)
+                    coin = new Coin(Quarter.Width);
+                    Balance -= Quarter.Value;
+                } else if (Balance >= Dime.Value)
                 {
-                    coin = new Coin(dime.Width);
-                    Balance -= dime.Value;
+                    coin = new Coin(Dime.Width);
+                    Balance -= Dime.Value;
                 } else
                 {
-                    coin = new Coin(nickel.Width);
-                    Balance -= nickel.Value;
+                    coin = new Coin(Nickel.Width);
+                    Balance -= Nickel.Value;
                 }
                 Balance = Math.Round(Balance, 2);
                 ReturnCoin(coin);
@@ -142,9 +145,9 @@ namespace VendingMachine
         public Product Cola { get => cola; set => cola = value; }
         public Product Chips { get => chips; set => chips = value; }
         public Product Candy { get => candy; set => candy = value; }
-        internal InternalCoin Quarter { get => quarter; set => quarter = value; }
-        internal InternalCoin Nickel { get => nickel; set => nickel = value; }
-        internal InternalCoin Dime { get => dime; set => dime = value; }
+        public InternalCoin Quarter { get => quarter; set => quarter = value; }
+        public InternalCoin Nickel { get => nickel; set => nickel = value; }
+        public InternalCoin Dime { get => dime; set => dime = value; }
         #endregion
     }
 }

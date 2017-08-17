@@ -4,7 +4,7 @@ using System.Text;
 
 namespace VendingMachine
 {
-    class InternalCoin : Coin
+    public class InternalCoin : Coin
     {
         private double value;
         private int stock;
