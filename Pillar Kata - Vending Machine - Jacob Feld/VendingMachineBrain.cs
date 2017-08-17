@@ -8,9 +8,11 @@ namespace VendingMachine
     {
         private double balance = 0;
         private List<Coin> coinReturn = new List<Coin>();
+        private string message = "";
 
         public double Balance { get => balance; set => balance = value; }
         public List<Coin> CoinReturn { get => coinReturn; set => coinReturn = value; }
+        public string Message { get => message; set => message = value; }
 
         static void Main(string[] args)
         {
@@ -19,7 +21,11 @@ namespace VendingMachine
 
         public string CheckDisplay()
         {
-            if (Balance > 0)
+            if (!Message.Equals(""))
+            {
+                return (Message);
+            }
+            else if (Balance > 0)
             {
                 return (Balance.ToString());
             } else
@@ -50,6 +56,20 @@ namespace VendingMachine
             { //don't recognize it. Toss it
                 CoinReturn.Add(coin);
                 return false;
+            }
+        }
+
+        public void SelectProduct(Product product)
+        {
+            if (product == Product.Cola)
+            {
+                Message = "1.0";
+            } else if (product == Product.Chips)
+            {
+                Message = "0.5";
+            } else if (product == Product.Candy)
+            {
+                Message = "0.65";
             }
         }
     }

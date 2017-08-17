@@ -22,6 +22,21 @@ namespace VendingMachineTest
             penny = new Coin(0.750);
         }
 
+        #region VendingMachineBrain.SelectProduct() Tests
+
+        [TestMethod]
+        public void SelectingAProductWithInsufficientBalanceDisplaysThePriceOfTheProduct()
+        {
+            brain.SelectProduct(Product.Cola);
+            Assert.AreEqual("1.0", brain.CheckDisplay());
+            brain.SelectProduct(Product.Chips);
+            Assert.AreEqual("0.5", brain.CheckDisplay());
+            brain.SelectProduct(Product.Candy);
+            Assert.AreEqual("0.65", brain.CheckDisplay());
+        }
+
+        #endregion
+
         #region VendingMachineBrain.CheckDisplay() Tests
 
         [TestMethod]

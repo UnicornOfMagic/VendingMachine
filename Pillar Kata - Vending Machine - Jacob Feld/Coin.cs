@@ -18,7 +18,6 @@ namespace VendingMachine
         /*0.750 in. 19.05 mm -- Penny	
         0.835 in. 21.21 mm -- Nickel
         0.705 in. 17.91 mm -- Dime
-        0.955 in. 24.26 mm -- Quarter
-        */
+        0.955 in. 24.26 mm -- Quarter*/
     }
 }
