@@ -19,11 +19,17 @@ namespace VendingMachine
         private List<Coin> coinReturn = new List<Coin>();
         private string message = "";
         private List<Product> dispenser = new List<Product>();
+        private int colaStock = 10;
+        private int chipStock = 10;
+        private int candyStock = 10;
 
         public double Balance { get => balance; set => balance = value; }
         public List<Coin> CoinReturn { get => coinReturn; set => coinReturn = value; }
         public string Message { get => message; set => message = value; }
         public List<Product> Dispenser { get => dispenser; set => dispenser = value; }
+        public int ColaStock { get => colaStock; set => colaStock = value; }
+        public int ChipStock { get => chipStock; set => chipStock = value; }
+        public int CandyStock { get => candyStock; set => candyStock = value; }
 
         public string CheckDisplay()
         {
@@ -61,7 +67,7 @@ namespace VendingMachine
                 return true;
             }
             else
-            { //don't recognize it. Toss it
+            { //don't recognize it. Return it
                 ReturnCoin(coin);
                 return false;
             }
@@ -71,7 +77,10 @@ namespace VendingMachine
         {
             if (product == Product.Cola)
             {
-                if (Balance < COLAPRICE)
+                if (ColaStock == 0)
+                {
+                    Message = "SOLD OUT";
+                }else if (Balance < COLAPRICE)
                     Message = COLAPRICE.ToString();
                 else
                 {
@@ -80,7 +89,10 @@ namespace VendingMachine
                 }
             } else if (product == Product.Chips)
             {
-                if (Balance < CHIPSPRICE)
+                if (ChipStock == 0)
+                {
+                    Message = "SOLD OUT";
+                }else if (Balance < CHIPSPRICE)
                     Message = CHIPSPRICE.ToString();
                 else
                 {
@@ -89,7 +101,10 @@ namespace VendingMachine
                 }
             } else if (product == Product.Candy)
             {
-                if (Balance < CANDYPRICE)
+                if (CandyStock == 0)
+                {
+                    Message = "SOLD OUT";
+                }else if (Balance < CANDYPRICE)
                     Message = CANDYPRICE.ToString();
                 else
                 {

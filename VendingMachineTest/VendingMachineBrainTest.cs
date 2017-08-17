@@ -33,6 +33,16 @@ namespace VendingMachineTest
         }
 
         [TestMethod]
+        public void WhenProductSelectedIsOutOfStockCheckDisplayShouldSaySoldOut()
+        {
+            brain.ColaStock = 0;
+            brain.SelectProduct(Product.Cola);
+            Assert.AreEqual("SOLD OUT", brain.CheckDisplay());
+        }
+
+        #region VendingMachineBrain.ReturnCoins() Tests
+
+        [TestMethod]
         public void CoinReturnButtonShouldReturnEntireBalanceAndReturnsCoins()
         {
             brain.Balance = 0.90;
@@ -48,6 +58,8 @@ namespace VendingMachineTest
             brain.ReturnCoins();
             Assert.AreEqual("INSERT COIN", brain.CheckDisplay());
         }
+
+        #endregion
 
         #region VendingMachineBrain.SelectProduct() Tests
 
