@@ -9,10 +9,12 @@ namespace VendingMachine
         private double balance = 0;
         private List<Coin> coinReturn = new List<Coin>();
         private string message = "";
+        private List<Product> dispenser = new List<Product>();
 
         public double Balance { get => balance; set => balance = value; }
         public List<Coin> CoinReturn { get => coinReturn; set => coinReturn = value; }
         public string Message { get => message; set => message = value; }
+        public List<Product> Dispenser { get => dispenser; set => dispenser = value; }
 
         static void Main(string[] args)
         {
@@ -63,14 +65,37 @@ namespace VendingMachine
         {
             if (product == Product.Cola)
             {
-                Message = "1.0";
+                if (Balance < 1)
+                    Message = "1.0";
+                else
+                {
+                    Balance -= 1;
+                    Dispense(product);
+                }
             } else if (product == Product.Chips)
             {
-                Message = "0.5";
+                if (Balance < 1)
+                    Message = "0.5";
+                else
+                {
+                    Balance -= 0.5;
+                    Dispense(product);
+                }
             } else if (product == Product.Candy)
             {
-                Message = "0.65";
+                if (Balance < 1)
+                    Message = "0.65";
+                else
+                {
+                    Balance -= 0.65;
+                    Dispense(product);
+                }
             }
+        }
+
+        private void Dispense(Product product)
+        {
+            Dispenser.Add(product);
         }
     }
 }

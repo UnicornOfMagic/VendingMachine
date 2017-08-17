@@ -35,6 +35,29 @@ namespace VendingMachineTest
             Assert.AreEqual("0.65", brain.CheckDisplay());
         }
 
+        [TestMethod]
+        public void SelectingAProductWithSufficientBalanceDispensesProduct()
+        {
+            brain.Balance = 1;
+            brain.SelectProduct(Product.Cola);
+            Assert.IsTrue(brain.Dispenser.Contains(Product.Cola));
+        }
+
+        [TestMethod]
+        public void SelectingAProductWithSufficientBalanceShouldNotDisplayProductPrice()
+        {
+            brain.Balance = 1;
+            brain.SelectProduct(Product.Cola);
+            Assert.AreEqual("INSERT COIN", brain.CheckDisplay());
+        }
+
+        [TestMethod]
+        public void SelectingAProductWithInsufficientBalanceShouldNotDispenseTheProduct()
+        {
+            brain.SelectProduct(Product.Cola);
+            Assert.IsFalse(brain.Dispenser.Contains(Product.Cola));
+        }
+
         #endregion
 
         #region VendingMachineBrain.CheckDisplay() Tests
