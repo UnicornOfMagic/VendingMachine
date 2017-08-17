@@ -102,6 +102,14 @@ namespace VendingMachine
                     Dispense(product);
                 }
             }
+
+            MakeChange();
+        }
+
+        private void MakeChange()
+        {
+            Coin coin = new Coin(QUARTERWIDTH);
+            ReturnCoin(coin);
         }
 
         private void ReturnCoin(Coin coin)

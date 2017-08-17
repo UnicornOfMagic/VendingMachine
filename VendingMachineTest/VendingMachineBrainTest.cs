@@ -68,6 +68,14 @@ namespace VendingMachineTest
             Assert.AreEqual("INSERT COIN", brain.CheckDisplay());
         }
 
+        [TestMethod]
+        public void SelectingAProductWithExcessBalanceShouldResultInChangeBack()
+        {
+            brain.Balance = 1.25;
+            brain.SelectProduct(Product.Cola);
+            Assert.IsTrue(brain.CoinReturn.Contains(quarter));
+        }
+
         #endregion
 
         #region VendingMachineBrain.CheckDisplay() Tests

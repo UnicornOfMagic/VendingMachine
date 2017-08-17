@@ -19,5 +19,16 @@ namespace VendingMachine
         0.835 in. 21.21 mm -- Nickel
         0.705 in. 17.91 mm -- Dime
         0.955 in. 24.26 mm -- Quarter*/
+
+        public override bool Equals(object o)
+        {
+            if (o.GetType().Equals(this.GetType()))
+            {
+                Coin coin = (Coin)o;
+                return this.Width == coin.Width;
+            }
+
+            return false;
+        }
     }
 }
