@@ -137,10 +137,7 @@ namespace VendingMachineTest
         #region VendingMachineBrain.CheckDisplay() Tests
 
         [TestMethod]
-        public void VendingMachineBrainReturnsInsertCoinWhenDisplayIsChecked()
-        {
-            Assert.AreEqual("INSERT COIN", brain.CheckDisplay());
-        }
+        public void VendingMachineBrainReturnsInsertCoinWhenDisplayIsChecked() => Assert.AreEqual("INSERT COIN", brain.CheckDisplay());
 
         [TestMethod]
         public void VendingMachineBrainReturnsAmountInsertedWhenDisplayIsCheckedAfterAcceptingValidCoins()
@@ -165,15 +162,21 @@ namespace VendingMachineTest
             Assert.AreEqual("INSERT COIN", brain.CheckDisplay());
         }
 
+        [TestMethod]
+        public void CheckDisplayReturnsExactChangeOnlyWhenThereAreInsufficientCoinsToMakeExactChange()
+        {
+            brain.QuarterCount = 0;
+            brain.NickelCount = 0;
+            brain.DimeCount = 0;
+            Assert.AreEqual("EXACT CHANGE ONLY", brain.CheckDisplay());
+        }
+
         #endregion
 
         #region VendingMachineBrain.AcceptCoin() Tests
 
         [TestMethod]
-        public void VendingMachineAcceptsQuarters()
-        {
-            Assert.IsTrue(brain.AcceptCoin(quarter));
-        }
+        public void VendingMachineAcceptsQuarters() => Assert.IsTrue(brain.AcceptCoin(quarter));
 
         [TestMethod]
         public void VendingMachineAcceptsNickels()

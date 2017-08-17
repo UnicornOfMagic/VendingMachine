@@ -15,6 +15,9 @@ namespace VendingMachine
         const double NICKELVALUE = 0.05;
         const double DIMEWIDTH = 0.705;
         const double DIMEVALUE = 0.1;
+        private int quarterCount = 10;
+        private int dimeCount = 10;
+        private int nickelCount = 10;
         private double balance = 0;
         private List<Coin> coinReturn = new List<Coin>();
         private string message = "";
@@ -33,6 +36,8 @@ namespace VendingMachine
                 return (Balance.ToString());
             } else
             {
+                if (quarterCount == 0 || dimeCount <= 2|| nickelCount <= 2)
+                    return ("EXACT CHANGE ONLY");
                 return ("INSERT COIN");
             }
 
@@ -134,7 +139,8 @@ namespace VendingMachine
         {
             Dispenser.Add(product);
         }
-        
+
+        #region getters&setters
         public double Balance { get => balance; set => balance = value; }
         public List<Coin> CoinReturn { get => coinReturn; set => coinReturn = value; }
         public string Message { get => message; set => message = value; }
@@ -142,5 +148,9 @@ namespace VendingMachine
         public Product Cola { get => cola; set => cola = value; }
         public Product Chips { get => chips; set => chips = value; }
         public Product Candy { get => candy; set => candy = value; }
+        public int QuarterCount { get => quarterCount; set => quarterCount = value; }
+        public int DimeCount { get => dimeCount; set => dimeCount = value; }
+        public int NickelCount { get => nickelCount; set => nickelCount = value; }
+        #endregion
     }
 }
