@@ -95,6 +95,14 @@ namespace VendingMachineTest
             Assert.IsFalse(brain.AcceptCoin(oddCoin4));
             Assert.IsFalse(brain.AcceptCoin(oddCoin5));
         }
+
+        [TestMethod]
+        public void DeclinedCoinsGoToTheCoinReturn()
+        {
+            brain.AcceptCoin(penny);
+            Assert.IsTrue(brain.CoinReturn.Contains(penny));
+        }
+
         #endregion
     }
 }

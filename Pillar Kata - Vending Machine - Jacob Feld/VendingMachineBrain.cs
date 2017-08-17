@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace VendingMachine
 {
@@ -6,8 +7,10 @@ namespace VendingMachine
     public class VendingMachineBrain
     {
         private double balance = 0;
+        private List<Coin> coinReturn = new List<Coin>();
 
         public double Balance { get => balance; set => balance = value; }
+        public List<Coin> CoinReturn { get => coinReturn; set => coinReturn = value; }
 
         static void Main(string[] args)
         {
@@ -44,8 +47,9 @@ namespace VendingMachine
                 return true;
             }
             else
-            {
-                return false; //don't recognize it. Toss it.
+            { //don't recognize it. Toss it
+                CoinReturn.Add(coin);
+                return false;
             }
         }
     }
