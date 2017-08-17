@@ -85,6 +85,7 @@ namespace VendingMachine
                 else
                 {
                     Balance -= COLAPRICE;
+                    ColaStock--;
                     Dispense(product);
                 }
             } else if (product == Product.Chips)
@@ -97,6 +98,7 @@ namespace VendingMachine
                 else
                 {
                     Balance -= CHIPSPRICE;
+                    ChipStock--;
                     Dispense(product);
                 }
             } else if (product == Product.Candy)
@@ -109,6 +111,7 @@ namespace VendingMachine
                 else
                 {
                     Balance -= CANDYPRICE;
+                    CandyStock--;
                     Dispense(product);
                 }
             }

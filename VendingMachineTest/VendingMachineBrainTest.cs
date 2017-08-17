@@ -40,6 +40,23 @@ namespace VendingMachineTest
             Assert.AreEqual("SOLD OUT", brain.CheckDisplay());
         }
 
+        [TestMethod]
+        public void WhenProductSelectedIsVendedTheStockWillDecreaseByOne()
+        {
+            brain.ColaStock = 10;
+            brain.Balance = 1;
+            brain.SelectProduct(Product.Cola);
+            Assert.AreEqual(9, brain.ColaStock);
+            brain.ChipStock = 10;
+            brain.Balance = 0.5;
+            brain.SelectProduct(Product.Chips);
+            Assert.AreEqual(9, brain.ChipStock);
+            brain.CandyStock = 10;
+            brain.Balance = 0.65;
+            brain.SelectProduct(Product.Candy);
+            Assert.AreEqual(9, brain.CandyStock);
+        }
+
         #region VendingMachineBrain.ReturnCoins() Tests
 
         [TestMethod]
