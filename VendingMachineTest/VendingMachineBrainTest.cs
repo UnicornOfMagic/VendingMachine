@@ -40,5 +40,27 @@ namespace VendingMachineTest
             Coin dime = new Coin(0.705);
             Assert.IsTrue(brain.AcceptCoin(dime));
         }
+
+        [TestMethod]
+        public void VendingMachineDeclinesPennies()
+        {
+            Coin penny = new Coin(0.750);
+            Assert.IsFalse(brain.AcceptCoin(penny));
+        }
+
+        [TestMethod]
+        public void VendingMachineDeclinesOddCoins()
+        {
+            Coin oddCoin1 = new Coin(0.123);
+            Coin oddCoin2 = new Coin(0.456);
+            Coin oddCoin3 = new Coin(0.789);
+            Coin oddCoin4 = new Coin(0.111);
+            Coin oddCoin5 = new Coin(10.20);
+            Assert.IsFalse(brain.AcceptCoin(oddCoin1));
+            Assert.IsFalse(brain.AcceptCoin(oddCoin2));
+            Assert.IsFalse(brain.AcceptCoin(oddCoin3));
+            Assert.IsFalse(brain.AcceptCoin(oddCoin4));
+            Assert.IsFalse(brain.AcceptCoin(oddCoin5));
+        }
     }
 }
