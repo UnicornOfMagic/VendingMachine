@@ -15,72 +15,77 @@ namespace VendingMachine
             Coin penny = new Coin(0.750);
             bool exit = false;
 
-            while (!exit)
+            do
             {
                 MainMenu();
                 string input = GetUserInput();
-                switch (input)
-                {
-                    case "D1":
-                    case "Numpad1":
-                        Console.WriteLine("***\nDisplay: [ " + string.Format("{0:C2}", brain.CheckDisplay()) + " ]\n***");
-                        break;
-                    case "D2":
-                    case "Numpad2":
-                        InsertCoins(brain, quarter, dime, nickel, penny, input);
-                        break;
-                    case "D3":
-                    case "Numpad3":
-                        brain.ReturnCoins();
-                        Console.WriteLine();
-                        break;
-                    case "D4":
-                    case "Numpad4":
-                        ProductMenu();
-                        input = GetUserInput();
-                        switch (input)
-                        {
-                            case "D1":
-                            case "Numpad1":
-                                brain.SelectProduct(ProductType.Cola);
-                                break;
-                            case "D2":
-                            case "Numpad2":
-                                brain.SelectProduct(ProductType.Chips);
-                                break;
-                            case "D3":
-                            case "Numpad3":
-                                brain.SelectProduct(ProductType.Candy);
-                                break;
-                            default:
-                                Console.WriteLine("Invalid Entry");
-                                break;
-                        }
-                        break;
-                    case "D5":
-                    case "Numpad5":
-                        Console.WriteLine("The coin return contained: ");
-                        PrintContents(brain.CoinReturn);
-                        break;
-                    case "D6":
-                    case "Numpad6":
-                        Console.WriteLine("The item dispenser contained: ");
-                        PrintContents(brain.Dispenser);
-                        break;
-                    case "D7":
-                    case "Numpad7":
-                        StockReadout(brain);
-                        break;
-                    case "D8":
-                    case "Numpad8":
-                        exit = true;
-                        break;
-                    default:
-                        Console.WriteLine("Invalid Choice ( " + input + " )");
-                        break;
-                }
-            }
+                HandleMainMenuChoices(brain, quarter, dime, nickel, penny, ref exit, ref input);
+            } while (!exit);
             Console.WriteLine("\nGoodbye");
+        }
+
+        private static void HandleMainMenuChoices(VendingMachineBrain brain, Coin quarter, Coin dime, Coin nickel, Coin penny, ref bool exit, ref string input)
+        {
+            switch (input)
+            {
+                case "D1":
+                case "Numpad1":
+                    Console.WriteLine("***\nDisplay: [ " + string.Format("{0:C2}", brain.CheckDisplay()) + " ]\n***");
+                    break;
+                case "D2":
+                case "Numpad2":
+                    InsertCoins(brain, quarter, dime, nickel, penny, input);
+                    break;
+                case "D3":
+                case "Numpad3":
+                    brain.ReturnCoins();
+                    Console.WriteLine();
+                    break;
+                case "D4":
+                case "Numpad4":
+                    ProductMenu();
+                    input = GetUserInput();
+                    switch (input)
+                    {
+                        case "D1":
+                        case "Numpad1":
+                            brain.SelectProduct(ProductType.Cola);
+                            break;
+                        case "D2":
+                        case "Numpad2":
+                            brain.SelectProduct(ProductType.Chips);
+                            break;
+                        case "D3":
+                        case "Numpad3":
+                            brain.SelectProduct(ProductType.Candy);
+                            break;
+                        default:
+                            Console.WriteLine("Invalid Entry");
+                            break;
+                    }
+                    break;
+                case "D5":
+                case "Numpad5":
+                    Console.WriteLine("The coin return contained: ");
+                    PrintContents(brain.CoinReturn);
+                    break;
+                case "D6":
+                case "Numpad6":
+                    Console.WriteLine("The item dispenser contained: ");
+                    PrintContents(brain.Dispenser);
+                    break;
+                case "D7":
+                case "Numpad7":
+                    StockReadout(brain);
+                    break;
+                case "D8":
+                case "Numpad8":
+                    exit = true;
+                    break;
+                default:
+                    Console.WriteLine("Invalid Choice ( " + input + " )");
+                    break;
+            }
         }
 
         private static void PrintContents<T>(List<T> list)
