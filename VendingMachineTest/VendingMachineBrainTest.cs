@@ -146,7 +146,7 @@ namespace VendingMachineTest
             brain.AcceptCoin(nickel);
             brain.AcceptCoin(dime);
 
-            Assert.AreEqual("0.4", brain.CheckDisplay());
+            Assert.AreEqual("$0.40", brain.CheckDisplay());
         }
 
         [TestMethod]

@@ -27,10 +27,10 @@ namespace VendingMachine
             }
             else if (Balance > 0)
             {
-                return (Balance.ToString());
+                return (Balance.ToString("C2"));
             } else
             {
-                if (Quarter.Stock == 0 || Dime.Stock <= 2|| Nickel.Stock <= 2)
+                if (Quarter.Stock == 0 && Dime.Stock <= 2 || Quarter.Stock == 0 && Nickel.Stock <= 2 && Dime.Stock <= 1)
                     return ("EXACT CHANGE ONLY");
                 return ("INSERT COIN");
             }
@@ -73,7 +73,7 @@ namespace VendingMachine
             {
                 Message = "SOLD OUT";
             }else if (Balance < product.Price)
-                Message = product.Price.ToString();
+                Message = product.Price.ToString("C2");
             else
             {
                 Balance -= product.Price;
