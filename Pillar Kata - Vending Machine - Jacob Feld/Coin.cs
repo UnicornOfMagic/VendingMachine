@@ -39,6 +39,8 @@ namespace VendingMachine
                 return ("dime");
             else if (this.Width == 0.835)
                 return ("nickel");
+            else if (this.Width == 0.750)
+                return ("penny");
             else
                 return ("unknown");
         }
