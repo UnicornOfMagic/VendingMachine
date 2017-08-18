@@ -6,13 +6,13 @@ namespace VendingMachine
 
     public class VendingMachineBrain
     {
-        private Product cola = new Product(ProductType.Cola, 1.0, 10);
-        private Product chips = new Product(ProductType.Chips, 0.5, 10);
-        private Product candy = new Product(ProductType.Candy, 0.65, 10);
-        private InternalCoin quarter = new InternalCoin(0.955, 0.25, 10);
-        private InternalCoin nickel = new InternalCoin(0.835, 0.05, 10);
-        private InternalCoin dime = new InternalCoin(0.705, 0.1, 10);
-        private double balance = 0;
+        private Product cola = new Product(ProductType.Cola, 1.0m, 10);
+        private Product chips = new Product(ProductType.Chips, 0.5m, 10);
+        private Product candy = new Product(ProductType.Candy, 0.65m, 10);
+        private InternalCoin quarter = new InternalCoin(0.955, 0.25m, 10);
+        private InternalCoin nickel = new InternalCoin(0.835, 0.05m, 10);
+        private InternalCoin dime = new InternalCoin(0.705, 0.1m, 10);
+        private decimal balance = 0;
         private List<Coin> coinReturn = new List<Coin>();
         private string message = "";
         private List<Product> dispenser = new List<Product>();
@@ -30,7 +30,7 @@ namespace VendingMachine
                 return (Balance.ToString("C2"));
             } else
             {
-                if (Quarter.Stock == 0 && Dime.Stock <= 2 || Quarter.Stock == 0 && Nickel.Stock <= 2 && Dime.Stock <= 1)
+                if (Quarter.Stock == 0 && Dime.Stock <= 2 || Quarter.Stock == 0 && Nickel.Stock <= 2 && Dime.Stock <= 1 || Nickel.Stock == 0)
                     return ("EXACT CHANGE ONLY");
                 return ("INSERT COIN");
             }
@@ -79,9 +79,8 @@ namespace VendingMachine
                 Balance -= product.Price;
                 product.Stock--;
                 Dispense(product);
+                MakeChange();
             }
-
-            MakeChange();
         }
 
         private Product ConvertProductTypeIntoProduct(ProductType type)
@@ -125,7 +124,6 @@ namespace VendingMachine
                     Balance -= Nickel.Value;
                     Nickel.Stock--;
                 }
-                Balance = Math.Round(Balance, 2);
                 ReturnCoin(coin);
             }
         }
@@ -141,7 +139,7 @@ namespace VendingMachine
         }
 
         #region getters&setters
-        public double Balance { get => balance; set => balance = value; }
+        public decimal Balance { get => balance; set => balance = value; }
         public List<Coin> CoinReturn { get => coinReturn; set => coinReturn = value; }
         public string Message { get => message; set => message = value; }
         public List<Product> Dispenser { get => dispenser; set => dispenser = value; }

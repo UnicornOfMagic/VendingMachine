@@ -6,17 +6,17 @@ namespace VendingMachine
 {
     public class InternalCoin : Coin
     {
-        private double value;
+        private decimal value;
         private int stock;
 
-        public InternalCoin(double width, double value, int stock) : base(width)
+        public InternalCoin(double width, decimal value, int stock) : base(width)
         {
             this.Width = width;
             this.Value = value;
             this.Stock = stock;
         }
 
-        public double Value { get => value; set => this.value = value; }
+        public decimal Value { get => value; set => this.value = value; }
         public int Stock { get => stock; set => stock = value; }
     }
 }

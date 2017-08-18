@@ -30,5 +30,17 @@ namespace VendingMachine
 
             return false;
         }
+
+        public override string ToString()
+        {
+            if (this.Width == 0.955)
+                return("quarter");
+            else if (this.Width == 0.705)
+                return ("dime");
+            else if (this.Width == 0.835)
+                return ("nickel");
+            else
+                return ("unknown");
+        }
     }
 }

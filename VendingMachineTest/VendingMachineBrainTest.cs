@@ -48,11 +48,11 @@ namespace VendingMachineTest
             brain.SelectProduct(ProductType.Cola);
             Assert.AreEqual(9, brain.Cola.Stock);
             brain.Chips.Stock = 10;
-            brain.Balance = 0.5;
+            brain.Balance = 0.5m;
             brain.SelectProduct(ProductType.Chips);
             Assert.AreEqual(9, brain.Chips.Stock);
             brain.Candy.Stock = 10;
-            brain.Balance = 0.65;
+            brain.Balance = 0.65m;
             brain.SelectProduct(ProductType.Candy);
             Assert.AreEqual(9, brain.Candy.Stock);
         }
@@ -62,7 +62,7 @@ namespace VendingMachineTest
         [TestMethod]
         public void CoinReturnButtonShouldReturnEntireBalanceAndReturnsCoins()
         {
-            brain.Balance = 0.90;
+            brain.Balance = 0.90m;
             brain.ReturnCoins();
             Assert.AreEqual(0, brain.Balance);
             Assert.IsTrue(brain.CoinReturn.Count > 0);
@@ -84,11 +84,11 @@ namespace VendingMachineTest
         public void SelectingAProductWithInsufficientBalanceDisplaysThePriceOfTheProduct()
         {
             brain.SelectProduct(ProductType.Cola);
-            Assert.AreEqual("1", brain.CheckDisplay());
+            Assert.AreEqual("$1.00", brain.CheckDisplay());
             brain.SelectProduct(ProductType.Chips);
-            Assert.AreEqual("0.5", brain.CheckDisplay());
+            Assert.AreEqual("$0.50", brain.CheckDisplay());
             brain.SelectProduct(ProductType.Candy);
-            Assert.AreEqual("0.65", brain.CheckDisplay());
+            Assert.AreEqual("$0.65", brain.CheckDisplay());
         }
 
         [TestMethod]
@@ -115,10 +115,18 @@ namespace VendingMachineTest
         }
 
         [TestMethod]
+        public void SelectingAProductWithInsufficientBalanceShouldNotResetTheBalance()
+        {
+            brain.Balance = 0.75m;
+            brain.SelectProduct(ProductType.Cola);
+            Assert.IsFalse(0 == brain.Balance);
+        }
+
+        [TestMethod]
         public void SelectingAProductWithInsufficientBalanceAndThenWithASufficientBalanceShouldDisplayInsertCoin()
         {
             brain.SelectProduct(ProductType.Cola);
-            Assert.AreEqual("1", brain.CheckDisplay());
+            Assert.AreEqual("$1.00", brain.CheckDisplay());
             brain.Balance = 1;
             brain.SelectProduct(ProductType.Cola);
             Assert.AreEqual("INSERT COIN", brain.CheckDisplay());
@@ -127,7 +135,7 @@ namespace VendingMachineTest
         [TestMethod]
         public void SelectingAProductWithExcessBalanceShouldResultInChangeBack()
         {
-            brain.Balance = 1.25;
+            brain.Balance = 1.25m;
             brain.SelectProduct(ProductType.Cola);
             Assert.IsTrue(brain.CoinReturn.Contains(quarter));
         }
